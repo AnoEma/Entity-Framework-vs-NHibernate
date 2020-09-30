@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPessoas.Repositorio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPessoas.Persistencia.NHibernate", "CadastroPessoas.Persistencia.NHibernate\CadastroPessoas.Persistencia.NHibernate.csproj", "{A04DF13E-6BEC-4FFE-A917-E7447B3E74B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadastroPessoas.WPF", "CadastroPessoas.WPF\CadastroPessoas.WPF.csproj", "{38F63A3B-C485-4BAC-B7D7-6BD7CD387F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A04DF13E-6BEC-4FFE-A917-E7447B3E74B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A04DF13E-6BEC-4FFE-A917-E7447B3E74B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A04DF13E-6BEC-4FFE-A917-E7447B3E74B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F63A3B-C485-4BAC-B7D7-6BD7CD387F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F63A3B-C485-4BAC-B7D7-6BD7CD387F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F63A3B-C485-4BAC-B7D7-6BD7CD387F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F63A3B-C485-4BAC-B7D7-6BD7CD387F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
