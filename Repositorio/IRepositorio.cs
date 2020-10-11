@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CadastroPessoas.Repositorio
 {
     public interface IRepositorio<TTipo>
     {
         List<TTipo> SelecionarTodos();
-        int Adicionar(TTipo objeto);
+        void Adicionar(TTipo objeto, Action<int> callBack);
     }
 }

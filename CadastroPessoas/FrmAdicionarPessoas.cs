@@ -27,7 +27,10 @@ namespace CadastroPessoas
             };
 
             IRepositorio<Pessoa> repositorioPessoas = new PessoaRepositorio();
-            repositorioPessoas.Adicionar(pessoas);
+            repositorioPessoas.Adicionar(pessoas, (linhasAfetadas) =>
+            {
+                MessageBox.Show(string.Format("Fora inseridos {0} registros.", linhasAfetadas));
+            });
             Close();
         }
     }
