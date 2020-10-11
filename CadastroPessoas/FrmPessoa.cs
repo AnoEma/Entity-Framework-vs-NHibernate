@@ -3,6 +3,7 @@ using CadastroPessoas.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CadastroPessoas
@@ -18,8 +19,23 @@ namespace CadastroPessoas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread thread = new Thread(PreencherDataGridView);
-            thread.Start();
+            //Thread thread = new Thread(PreencherDataGridView);
+            //thread.Start();
+            Task<int>.Run(() =>
+            {
+                Thread.Sleep(5000);
+                IRepositorio<Pessoa> repositorio = new PessoaRepositorio();
+                _pessoas = repositorio.SelecionarTodos();
+                return _pessoas.Count;
+            }).ContinueWith((taskAnterio) =>
+            {
+                dgvPessoa.Invoke((MethodInvoker)delegate
+                {
+                    dgvPessoa.DataSource = _pessoas;
+                    dgvPessoa.Refresh();
+                });
+                MessageBox.Show(string.Format("Há {0} registros.", taskAnterio.Result));
+            });
         }
 
         private void PreencherDataGridView()
@@ -88,7 +104,7 @@ namespace CadastroPessoas
         {
             FrmAdicionarPessoas frmAdicionarPessoas = new FrmAdicionarPessoas();
             frmAdicionarPessoas.ShowDialog();
-            PreencherDataGridView();
+           // PreencherDataGridView();
         }
     }
 }
