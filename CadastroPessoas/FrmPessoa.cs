@@ -19,42 +19,29 @@ namespace CadastroPessoas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Thread thread = new Thread(PreencherDataGridView);
-            //thread.Start();
-            Task<int>.Run(() =>
+            PreencherDataGridViewAsync();
+        }
+
+        private async void PreencherDataGridViewAsync()
+        {
+            int quantidadeLinhas = await PreencherDataGridView();
+            MessageBox.Show(string.Format("Há {0} registros.", quantidadeLinhas));
+            dgvPessoa.Invoke((MethodInvoker)delegate
+            {
+                dgvPessoa.DataSource = _pessoas;
+                dgvPessoa.Refresh();
+            });
+        }
+
+        private Task<int> PreencherDataGridView()
+        {
+            return Task<int>.Run(() =>
             {
                 Thread.Sleep(5000);
                 IRepositorio<Pessoa> repositorio = new PessoaRepositorio();
                 _pessoas = repositorio.SelecionarTodos();
                 return _pessoas.Count;
-            }).ContinueWith((taskAnterio) =>
-            {
-                dgvPessoa.Invoke((MethodInvoker)delegate
-                {
-                    dgvPessoa.DataSource = _pessoas;
-                    dgvPessoa.Refresh();
-                });
-                MessageBox.Show(string.Format("Há {0} registros.", taskAnterio.Result));
             });
-        }
-
-        private void PreencherDataGridView()
-        {
-            try
-            {
-                Thread.Sleep(5000);
-                Thread thread = new Thread(PreencherListaPessoas);
-                Thread thread2 = new Thread(PreencherListaPessoas2);
-                thread.Start();
-                thread2.Start();
-                thread.Join();
-                thread2.Join();
-                dgvPessoa.Invoke((MethodInvoker)delegate { dgvPessoa.DataSource = _pessoas; dgvPessoa.Refresh(); });
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void PreencherListaPessoas()
@@ -104,7 +91,7 @@ namespace CadastroPessoas
         {
             FrmAdicionarPessoas frmAdicionarPessoas = new FrmAdicionarPessoas();
             frmAdicionarPessoas.ShowDialog();
-           // PreencherDataGridView();
+            PreencherDataGridViewAsync();
         }
     }
 }
