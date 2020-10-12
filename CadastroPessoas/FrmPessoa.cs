@@ -19,6 +19,7 @@ namespace CadastroPessoas
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            txbPesquisa.Text = string.Empty;
             PreencherDataGridViewAsync();
         }
 
@@ -37,7 +38,7 @@ namespace CadastroPessoas
         {
             return Task<int>.Run(() =>
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
                 IRepositorio<Pessoa> repositorio = new PessoaRepositorio();
                 _pessoas = repositorio.SelecionarTodos();
                 return _pessoas.Count;
@@ -92,6 +93,13 @@ namespace CadastroPessoas
             FrmAdicionarPessoas frmAdicionarPessoas = new FrmAdicionarPessoas();
             frmAdicionarPessoas.ShowDialog();
             PreencherDataGridViewAsync();
+        }
+
+        private void btnPesquisa_Click(object sender, EventArgs e)
+        {
+            IRepositorio<Pessoa> repositorio = new PessoaRepositorio();
+            dgvPessoa.DataSource = repositorio.Selecionar(pessoa => pessoa.Nome.Contains(txbPesquisa.Text));
+            dgvPessoa.Refresh();
         }
     }
 }

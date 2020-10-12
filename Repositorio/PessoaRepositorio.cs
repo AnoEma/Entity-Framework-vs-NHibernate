@@ -3,6 +3,7 @@ using CadastroPessoas.Persistencia.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace CadastroPessoas.Repositorio
 {
@@ -19,10 +20,18 @@ namespace CadastroPessoas.Repositorio
             });
         }
 
+        public List<Pessoa> Selecionar(Func<Pessoa, bool> whereClause)
+        {
+            CadastroPessoasDbContext context = new CadastroPessoasDbContext();
+            List<Pessoa> pessoas = context.Pessoas.AsParallel().Where(whereClause).ToList();
+            context.Dispose();
+            return pessoas;
+        }
+
         public List<Pessoa> SelecionarTodos()
         {
             CadastroPessoasDbContext context = new CadastroPessoasDbContext();
-            List<Pessoa> pessoas = context.Pessoas.OrderBy(x => x.Nome).ToList();
+            List<Pessoa> pessoas = context.Pessoas.AsParallel().OrderBy(x => x.Nome).ToList();
             context.Dispose();
             return pessoas;
         }

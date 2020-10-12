@@ -7,5 +7,6 @@ namespace CadastroPessoas.Repositorio
     {
         List<TTipo> SelecionarTodos();
         void Adicionar(TTipo objeto, Action<int> callBack);
+        List<TTipo> Selecionar(Func<TTipo, bool> whereClause);
     }
 }
